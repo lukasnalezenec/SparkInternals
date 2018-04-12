@@ -25,7 +25,7 @@ In the diagram there're 4 `ShuffleMapTask`s to execute in the same worker node w
 
 > In fact bucket is a general concept in Spark that represents the location of the partitioned output of a `ShuffleMapTask`. Here for simplicity a bucket is referred to an in-memory buffer.
 
-`ShuffleMapTask` employs the pipelining techinque to compute the result records of the final RDD. Each record is sent to the bucket of its corresponding partition, which is determined by `partitioner.partition(record.getKey())`. The content of these buckets is written continuously to local disk files called `ShuffleBlockFile`, or `FileSegment` for short. Reducers will fetch their `FileSegment` in shuffle read phase.
+`ShuffleMapTask` employs the pipelining technique to compute the result records of the final RDD. Each record is sent to the bucket of its corresponding partition, which is determined by `partitioner.partition(record.getKey())`. The content of these buckets is written continuously to local disk files called `ShuffleBlockFile`, or `FileSegment` for short. Reducers will fetch their `FileSegment` in shuffle read phase.
 
 An implementation like this is very simple, but has some issues:
 
